@@ -13,9 +13,14 @@ let bomb = [];
 
 startButton.addEventListener("click", function () {
   gameGrid.innerHTML = "";
+  bombSpots = [];
+  bomb = [];
   let grid = difficulty.value;
   generateNumericProgressiveArray(1, grid * grid, 1, bombSpots);
+  bombPosition(16, bombSpots.length, bombSpots);
   gridGenerator(grid);
+  console.log(bombSpots);
+  console.log(bomb);
 });
 
 // function for generating grid
@@ -32,6 +37,8 @@ function cellGenerator(number, grid) {
   const cell = document.createElement("div");
   cell.classList.add("cell");
   cell.classList.add("cell-" + grid);
+  // add selector class for bombs
+  cell.classList.add(number);
   cell.innerHTML = number;
 
   cell.addEventListener("click", function () {
@@ -40,6 +47,16 @@ function cellGenerator(number, grid) {
   });
 
   return cell;
+}
+
+// function to position bombs
+
+function bombPosition(numberOfBombs, max, where) {
+  while (bomb.length < numberOfBombs) {
+    const randomIndex = generateRandomNumber(1, max);
+    where.splice(randomIndex - 1, 1);
+    bomb.push(randomIndex);
+  }
 }
 
 // function to generate numeric progessive Array
@@ -55,5 +72,6 @@ function generateNumericProgressiveArray(from, to, step, where) {
 
 function generateRandomNumber(min, max) {
   let number = Math.floor(Math.random() * max) + min;
-  console.log(number);
+
+  return number;
 }
