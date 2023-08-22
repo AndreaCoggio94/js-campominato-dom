@@ -29,13 +29,13 @@ startButton.addEventListener("click", function () {
   gameOver = false;
   grid = difficulty.value;
   maxCorrectAnswer = grid * grid - 16;
-  console.log(maxCorrectAnswer);
+  // console.log(maxCorrectAnswer);
   generateNumericProgressiveArray(1, grid * grid, 1, bombSpots);
   bombPosition(16, bombSpots);
   gridGenerator(grid);
 
-  console.log("new bombspots " + bombSpots);
-  console.log(bomb);
+  // console.log("new bombspots " + bombSpots);
+  // console.log(bomb);
 });
 
 // end game function
@@ -92,14 +92,14 @@ function cellGenerator(number, grid) {
     }
     if (bomb.includes(number)) {
       this.classList.add("boom");
-      console.log("boom baby");
+      // console.log("boom baby");
       return endGame();
     }
 
     if (!correct.includes(number)) {
       this.classList.add("azure");
       correct.push(number);
-      console.log(correct);
+      // console.log(correct);
       isWinner();
     }
   });
@@ -111,7 +111,7 @@ function cellGenerator(number, grid) {
 
 function isWinner() {
   if (correct.length == maxCorrectAnswer) {
-    console.log("winner!");
+    // console.log("winner!");
     return endGame();
   }
 }
@@ -132,13 +132,13 @@ function generateNumericProgressiveArray(from, to, step, where) {
   for (let i = from; i <= to; i += step) {
     where.push(i);
   }
-  console.log(where);
+  // console.log(where);
 }
 
 // function to generate random number
 
 function generateRandomNumber(min, max) {
   let number = Math.floor(Math.random() * max) + min;
-  console.log(number);
+  // console.log(number);
   return number;
 }
