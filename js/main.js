@@ -89,14 +89,11 @@ function cellGenerator(number, grid) {
   cell.addEventListener("click", function () {
     if (gameOver) {
       return postEndGame();
-    }
-    if (bomb.includes(number)) {
+    } else if (bomb.includes(number)) {
       this.classList.add("boom");
       // console.log("boom baby");
       return endGame();
-    }
-
-    if (!correct.includes(number)) {
+    } else if (!correct.includes(number)) {
       this.classList.add("azure");
       correct.push(number);
       // console.log(correct);
