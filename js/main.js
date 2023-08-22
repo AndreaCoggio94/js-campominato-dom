@@ -4,22 +4,20 @@ const startButton = document.getElementById("button-start");
 const gameGrid = document.getElementById("game-grid");
 // get difficulty
 const difficulty = document.getElementById("game-difficulty");
-// get choosen grid
-let grid = difficulty.value;
 
 // start button functionality
 
 startButton.addEventListener("click", function () {
   gameGrid.innerHTML = "";
-  grid = difficulty.value;
-  gridGenerator();
+  let grid = difficulty.value;
+  gridGenerator(grid);
 });
 
 // function for generating grid
 
-function gridGenerator() {
-  for (let index = 1; index <= grid * grid; index++) {
-    gameGrid.append(cellGenerator(index, grid));
+function gridGenerator(max) {
+  for (let index = 1; index <= max * max; index++) {
+    gameGrid.append(cellGenerator(index, max));
   }
 }
 
@@ -37,4 +35,12 @@ function cellGenerator(number, grid) {
   });
 
   return cell;
+}
+
+// function to generate numeric progessive Array
+
+function generateNumericProgressiveArray(from, to, step, where) {
+  for (let i = from; i <= to; i += step) {
+    where.push(i);
+  }
 }
