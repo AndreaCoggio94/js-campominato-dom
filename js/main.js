@@ -42,13 +42,17 @@ function endGame() {
     alert(
       "Congratulations, the game ended with " +
         correct.length +
-        " correct cells against 16 bombs!"
+        " correct cells out of " +
+        maxCorrectAnswer +
+        ", against 16 bombs!"
     );
   } else {
     alert(
       "Game over, your score is of " +
         correct.length +
-        " correct cells against 16 bombs!"
+        " correct cells out of " +
+        maxCorrectAnswer +
+        ", against 16 bombs!"
     );
   }
 }
