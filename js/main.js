@@ -6,6 +6,8 @@ const gameGrid = document.getElementById("game-grid");
 const difficulty = document.getElementById("game-difficulty");
 // get class
 const getClass = document.getElementsByClassName;
+// is game over ?
+let gameOver = false;
 // difficulty value
 let grid = 0;
 // possible bomb spots
@@ -24,6 +26,7 @@ startButton.addEventListener("click", function () {
   bombSpots = [];
   bomb = [];
   correct = [];
+  gameOver = false;
   grid = difficulty.value;
   maxCorrectAnswer = grid * grid - 16;
   console.log(maxCorrectAnswer);
@@ -38,6 +41,7 @@ startButton.addEventListener("click", function () {
 // end game function
 
 function endGame() {
+  gameOver = true;
   if (maxCorrectAnswer == correct.length) {
     alert(
       "Congratulations, the game ended with " +
@@ -55,6 +59,14 @@ function endGame() {
         ", against 16 bombs!"
     );
   }
+}
+
+// post end game function
+
+function postEndGame() {
+  alert(
+    "Press Start Game and choose difficulty to continue playing, may the odds always be in your favour"
+  );
 }
 
 // function for generating grid
@@ -75,6 +87,9 @@ function cellGenerator(number, grid) {
   cell.innerHTML = number;
 
   cell.addEventListener("click", function () {
+    if (gameOver) {
+      return postEndGame();
+    }
     if (bomb.includes(number)) {
       this.classList.add("boom");
       console.log("boom baby");
