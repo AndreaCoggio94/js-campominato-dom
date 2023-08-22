@@ -4,6 +4,8 @@ const startButton = document.getElementById("button-start");
 const gameGrid = document.getElementById("game-grid");
 // get difficulty
 const difficulty = document.getElementById("game-difficulty");
+// get class
+const getClass = document.getElementsByClassName;
 // possible bomb spots
 let bombSpots = [];
 // bomb array
@@ -14,15 +16,21 @@ let bomb = [];
 startButton.addEventListener("click", function () {
   gameGrid.innerHTML = "";
   bombSpots = [];
-  bomb = [20];
+  bomb = [];
   let grid = difficulty.value;
   generateNumericProgressiveArray(1, grid * grid, 1, bombSpots);
-  bombPosition(16, bombSpots.length, bombSpots);
+  bombPosition(16, bombSpots);
   gridGenerator(grid);
 
-  console.log(bombSpots);
+  console.log("new bombspots " + bombSpots);
   console.log(bomb);
 });
+
+// end game funcionality
+
+function endGame() {
+  console.log("Les jeux sont faits, rien ne va plus");
+}
 
 // function for generating grid
 
@@ -38,16 +46,18 @@ function cellGenerator(number, grid) {
   const cell = document.createElement("div");
   cell.classList.add("cell");
   cell.classList.add("cell-" + grid);
-  // add selector class for bombs
-  cell.classList.add(number);
+
   cell.innerHTML = number;
 
   cell.addEventListener("click", function () {
-    // if (bomb.includes(document.getElementsByClassName(number))) {
-    //   console.log("boom baby");
-    // }
-    this.classList.add("azure");
-    console.log(number);
+    if (bomb.includes(number)) {
+      this.classList.add("boom");
+      console.log("boom baby");
+      return endGame();
+    } else {
+      this.classList.add("azure");
+      console.log(number);
+    }
   });
 
   return cell;
@@ -55,11 +65,11 @@ function cellGenerator(number, grid) {
 
 // function to know the position of bombs
 
-function bombPosition(numberOfBombs, max, where) {
+function bombPosition(numberOfBombs, where) {
   while (bomb.length < numberOfBombs) {
-    const randomIndex = generateRandomNumber(1, max);
+    const randomIndex = generateRandomNumber(1, bombSpots.length);
+    bomb.push(where[randomIndex - 1]);
     where.splice(randomIndex - 1, 1);
-    bomb.push(randomIndex);
   }
 }
 
@@ -76,6 +86,6 @@ function generateNumericProgressiveArray(from, to, step, where) {
 
 function generateRandomNumber(min, max) {
   let number = Math.floor(Math.random() * max) + min;
-
+  console.log(number);
   return number;
 }
