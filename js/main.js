@@ -10,6 +10,10 @@ const getClass = document.getElementsByClassName;
 let bombSpots = [];
 // bomb array
 let bomb = [];
+// total number of possible correct answers
+let maxCorrectAnswer = 0;
+// correct answer array
+let correct = [];
 
 // start button function
 
@@ -17,7 +21,10 @@ startButton.addEventListener("click", function () {
   gameGrid.innerHTML = "";
   bombSpots = [];
   bomb = [];
+  correct = [];
   let grid = difficulty.value;
+  maxCorrectAnswer = grid * grid - 16;
+  console.log(maxCorrectAnswer);
   generateNumericProgressiveArray(1, grid * grid, 1, bombSpots);
   bombPosition(16, bombSpots);
   gridGenerator(grid);
@@ -54,9 +61,14 @@ function cellGenerator(number, grid) {
       this.classList.add("boom");
       console.log("boom baby");
       return endGame();
+    }
+    if (correct.length == maxCorrectAnswer) {
+      console.log("winner!");
+      return endGame();
     } else {
       this.classList.add("azure");
-      console.log(number);
+      correct.push(number);
+      console.log(correct);
     }
   });
 
