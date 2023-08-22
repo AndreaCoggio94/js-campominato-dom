@@ -76,22 +76,25 @@ function cellGenerator(number, grid) {
       console.log("boom baby");
       return endGame();
     }
-    if (correct.length == maxCorrectAnswer) {
-      console.log("winner!");
-      return endGame();
-    }
+
     if (!correct.includes(number)) {
       this.classList.add("azure");
       correct.push(number);
       console.log(correct);
-    } else {
-      this.classList.add("azure");
-
-      console.log(correct);
+      isWinner();
     }
   });
 
   return cell;
+}
+
+// function to check if the player won
+
+function isWinner() {
+  if (correct.length == maxCorrectAnswer) {
+    console.log("winner!");
+    return endGame();
+  }
 }
 
 // function to know the position of bombs
