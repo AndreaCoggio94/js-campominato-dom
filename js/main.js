@@ -11,7 +11,7 @@ let bombSpots = [];
 // bomb array
 let bomb = [];
 
-// start button functionality
+// start button function
 
 startButton.addEventListener("click", function () {
   gameGrid.innerHTML = "";
@@ -26,7 +26,7 @@ startButton.addEventListener("click", function () {
   console.log(bomb);
 });
 
-// end game funcionality
+// end game function
 
 function endGame() {
   console.log("Les jeux sont faits, rien ne va plus");
