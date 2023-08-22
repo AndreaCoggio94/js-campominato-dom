@@ -4,20 +4,18 @@ const startButton = document.getElementById("button-start");
 const gameGrid = document.getElementById("game-grid");
 // get difficulty
 const difficulty = document.getElementById("game-difficulty");
-// get class
-const getClass = document.getElementsByClassName;
 // is game over ?
 let gameOver = false;
 // difficulty value
 let grid = 0;
 // possible bomb spots
-let bombSpots = [];
+const bombSpots = [];
 // bomb array
-let bomb = [];
+const bomb = [];
 // total number of possible correct answers
 let maxCorrectAnswer = 0;
 // correct answer array
-let correct = [];
+const correct = [];
 
 // start button function
 
@@ -30,8 +28,8 @@ startButton.addEventListener("click", function () {
   grid = difficulty.value;
   maxCorrectAnswer = grid * grid - 16;
   // console.log(maxCorrectAnswer);
-  generateNumericProgressiveArray(1, grid * grid, 1, bombSpots);
-  bombPosition(16, bombSpots);
+  bombSpots = generateNumericProgressiveArray(1, grid * grid, 1);
+  bomb = bombPosition(16, bombSpots);
   gridGenerator(grid);
 
   // console.log("new bombspots " + bombSpots);
@@ -71,28 +69,29 @@ function postEndGame() {
 
 // function for generating grid
 
-function gridGenerator(max) {
-  for (let index = 1; index <= max * max; index++) {
-    gameGrid.append(cellGenerator(index, max));
+function gridGenerator(row) {
+  for (let index = 1; index <= row * row; index++) {
+    const cell = cellGenerator(index, row);
+    gameGrid.append(cell);
   }
 }
 
 // function for generating cells
 
-function cellGenerator(number, grid) {
+function cellGenerator(number, row) {
   const cell = document.createElement("div");
   cell.classList.add("cell");
-  cell.classList.add("cell-" + grid);
+  cell.classList.add("cell-" + row);
 
   cell.innerHTML = number;
 
   cell.addEventListener("click", function () {
     if (gameOver) {
-      return postEndGame();
+      postEndGame();
     } else if (bomb.includes(number)) {
       this.classList.add("boom");
       // console.log("boom baby");
-      return endGame();
+      endGame();
     } else if (!correct.includes(number)) {
       this.classList.add("azure");
       correct.push(number);
@@ -109,26 +108,30 @@ function cellGenerator(number, grid) {
 function isWinner() {
   if (correct.length == maxCorrectAnswer) {
     // console.log("winner!");
-    return endGame();
+    endGame();
   }
 }
 
 // function to know the position of bombs
 
 function bombPosition(numberOfBombs, where) {
-  while (bomb.length < numberOfBombs) {
-    const randomIndex = generateRandomNumber(1, bombSpots.length);
-    bomb.push(where[randomIndex - 1]);
+  const array = [];
+  while (array.length < numberOfBombs) {
+    const randomIndex = generateRandomNumber(1, where.length);
+    array.push(where[randomIndex - 1]);
     where.splice(randomIndex - 1, 1);
   }
+  return array;
 }
 
 // function to generate numeric progessive Array
 
-function generateNumericProgressiveArray(from, to, step, where) {
+function generateNumericProgressiveArray(from, to, step) {
+  const array = [];
   for (let i = from; i <= to; i += step) {
-    where.push(i);
+    array.push(i);
   }
+  return array;
   // console.log(where);
 }
 
