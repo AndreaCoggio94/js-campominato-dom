@@ -6,6 +6,8 @@ const gameGrid = document.getElementById("game-grid");
 const difficulty = document.getElementById("game-difficulty");
 // get class
 const getClass = document.getElementsByClassName;
+// difficulty value
+let grid = 0;
 // possible bomb spots
 let bombSpots = [];
 // bomb array
@@ -22,7 +24,7 @@ startButton.addEventListener("click", function () {
   bombSpots = [];
   bomb = [];
   correct = [];
-  let grid = difficulty.value;
+  grid = difficulty.value;
   maxCorrectAnswer = grid * grid - 16;
   console.log(maxCorrectAnswer);
   generateNumericProgressiveArray(1, grid * grid, 1, bombSpots);
@@ -36,7 +38,19 @@ startButton.addEventListener("click", function () {
 // end game function
 
 function endGame() {
-  console.log("Les jeux sont faits, rien ne va plus");
+  if (maxCorrectAnswer == correct.length) {
+    alert(
+      "Congratulations, the game ended with " +
+        correct.length +
+        " correct cells against 16 bombs!"
+    );
+  } else {
+    alert(
+      "Game over, your score is of " +
+        correct.length +
+        " correct cells against 16 bombs!"
+    );
+  }
 }
 
 // function for generating grid
