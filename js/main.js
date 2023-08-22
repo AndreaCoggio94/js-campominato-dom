@@ -65,9 +65,14 @@ function cellGenerator(number, grid) {
     if (correct.length == maxCorrectAnswer) {
       console.log("winner!");
       return endGame();
-    } else {
+    }
+    if (!correct.includes(number)) {
       this.classList.add("azure");
       correct.push(number);
+      console.log(correct);
+    } else {
+      this.classList.add("azure");
+
       console.log(correct);
     }
   });
