@@ -14,11 +14,12 @@ let bomb = [];
 startButton.addEventListener("click", function () {
   gameGrid.innerHTML = "";
   bombSpots = [];
-  bomb = [];
+  bomb = [20];
   let grid = difficulty.value;
   generateNumericProgressiveArray(1, grid * grid, 1, bombSpots);
   bombPosition(16, bombSpots.length, bombSpots);
   gridGenerator(grid);
+
   console.log(bombSpots);
   console.log(bomb);
 });
@@ -42,6 +43,9 @@ function cellGenerator(number, grid) {
   cell.innerHTML = number;
 
   cell.addEventListener("click", function () {
+    // if (bomb.includes(document.getElementsByClassName(number))) {
+    //   console.log("boom baby");
+    // }
     this.classList.add("azure");
     console.log(number);
   });
@@ -49,7 +53,7 @@ function cellGenerator(number, grid) {
   return cell;
 }
 
-// function to position bombs
+// function to know the position of bombs
 
 function bombPosition(numberOfBombs, max, where) {
   while (bomb.length < numberOfBombs) {
